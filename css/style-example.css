@@ -1,0 +1,275 @@
+/* 전역 리셋과 기본 설정 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전역에서 사용할 CSS 변수 - 색상값 정의, 일관성 향상*/
+:root {
+    --primary-color: #667eea;       /* 주요 색상 */         /* '--'는 단순한 네이밍 스타일이 아니라 이 문법의 필수야. 기존 속성(color, font-size 등)과 혼동 방지. 안 붙이면 브라우저가 인식 못 함, 적용 안 됨 */
+    --secondary-color: #764ba2;     /* 보조 색상 */
+    --text-color:#2c3e50;           /* 어두운 텍스트 */
+    --white: #ffffff;               /* 밝은 배경 */
+    --shadow : rgba(0,0,0,0.1);     /* 그림자 효과 */
+}
+
+/* body 기본 스타일 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;   /* 줄 간격 */
+    color:var(--text-color);        /* CSS 변수 사용 */
+    overflow-x:hidden;      /* 가로 스크롤 방지 */
+
+}
+
+/* 공통 컨테이너 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding:0 2rem;
+}
+
+/* 섹션 공통 스타일 */
+section {
+    padding: 5rem 0;
+}
+
+/* 네비게이션 */
+.navbar {
+    background: var(--white);
+    box-shadow: 0 2px 20px var(--shadow);
+    position: fixed;        /* 스크롤 해도 상단에 고정 */
+    top:0;
+    width:100%;
+    z-index:1000;           /* 다른 요소 위에 표시 */
+    transition:all 0.3s ease;   /* 부드러운 변화 효과 */
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;      /* Flexbox 레이아웃 */
+    justify-content: space-between;     /* 양 끝 정렬 */
+    align-items: center;
+    height: 70px;
+}
+
+
+.nav-logo{
+    display:flex;
+    align-items: center;
+    gap:10px;
+    font-size:1.5rem;
+    font-weight: 700;
+    color:var(--text-color);
+}
+
+.nav-logo span:first-child{
+    font-size:2rem;
+    cursor:pointer;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo span:first-child:hover {
+    transform:scale(1.2);       /* 크기 확대 */
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    align-items:center;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color:var(--text-color);
+    font-weight:500;
+    transition:color 0.3s ease;
+    position: relative;     /* ::after 가상 요소를 위한 포지셔닝. 밑줄 효과가 나타나려면 반드시 있어야함.
+                            왜냐면 ::after는 position: absolute;인데,
+                  그 기준이 되는 **부모 요소가 position: relative;**일 때 원하는 위치에 정확히 잡히거든.
+                            position: relative : "내 자리 그대로 두고", 나 기준으로 자식 요소의 위치 지정 가능하게 함
+                            position: absolute : "내 위치는 부모 기준으로 지정할게!"
+                            */
+}
+
+.nav-menu a:hover {
+    color:var(--primary-color);
+}
+
+/* 호버 할 때 나타나는 밑줄 효과 */         /* CSSNote\12.고급선택자\4.가상요소 */
+.nav-menu a::after {
+    content: '';
+    width:0;                            /* 너비 0인 선임 */
+    height:2px;                         /*  선인 이유: 2px의 높이 */
+    background: var(--primary-color);  /* 색이 있는 선임 */
+    position:absolute;                     /* a 태그 기준으로 위치 지정 */
+    bottom:-5px;                            /* a태그의 아래쪽에 위치. position:absoulte,bottom:5px -> 링크 텍스트 바로 아래에 딱 붙게 만든다 */     
+    left:0;
+    transition:width 0.3s ease;
+}
+
+/*  */
+.nav-menu a:hover::after{
+    width:100%;                     /* 호버 할 때 선이 왼쪽->오른쪽으로 쭉 길어짐. 전체 너비로 확장
+                                       왼쪽->오른쪽인 이유
+                                       left: 0이라 시작점은 항상 왼쪽: 왼쪽부터 시작하려고 대기 중
+
+                                       만약 오른쪽 → 왼쪽 효과로 만들고 싶으면?
+                                       -> right:0
+
+
+                                    
+                                    */
+}
+
+/* 메인 섹션 */
+.hero-main {
+    /* 대각선으로  그라디언트 배경 */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color:white;
+    padding:8rem 0 5rem;
+    margin-top:70px;
+    min-height:90vh;        /* 뷰포트 높이의 90% */
+    display:flex;
+    align-items:center;
+}
+
+.hero-container {
+    max-width:1200px;
+    margin:0 auto;
+    padding: 0 2rem;
+}
+
+.hero-content{
+    display:grid;
+    grid-template-columns: 1fr 1fr;     /* 두 개의 동일한 너비 열 */
+    gap:4rem;
+    align-items: center;
+}
+
+.hero-title{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.highlight{
+    background: linear-gradient(45deg, #ff9a93, #f3cfef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;              /* 텍스트에만 그라디언트 적용 */
+}
+
+.hero-subtitle{
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    opacity:0.9;            /* 투명도로 계층 구조 표현 */
+}
+
+.hero-description {
+    font-size:1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;            /* 투명도로 계층 구조 표현 */
+    line-height: 1.8;       /* 본문 가독성을 위한 넓은 줄 간격 */
+}
+
+.hero-buttons {
+    display:flex;
+    gap:1rem;
+    margin-bottom: 2rem;
+}
+
+.btn-primary, .btn-secondary {
+    padding:1rem 2rem;
+    border:none;
+    border-radius: 30px;
+    font-weight:600;
+    cursor:pointer;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background: transparent;
+    color:black;
+    border: 2px solid black;
+}
+
+.btn-secondary {
+    background: transparent;
+    color:white;
+    border: 2px solid white;
+}
+
+.btn-primary:hover {
+    transform:translateY(-3px);     /* 호버 시 위로 이동 */
+    box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+}
+.btn-secondary:hover {
+    color:var(--primary-color);
+    background: white;
+}
+
+.social-links {
+    display:flex;
+    gap: 1rem;
+}
+
+.social-btn {
+    width:50px;
+    height: 50px;
+    border-radius: 50%;             /* 동그라미 */
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1);      /* 반투명 */
+    color:white;
+    font-size: 1.2rem;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    display:flex;
+    align-items: center;            /* 아이콘 중앙 정렬 */
+    justify-content: center;
+}
+
+.social-btn:hover {
+    background: white;
+    color:var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.hero-image {
+    display:flex;
+    justify-content: center;
+}
+
+.profile-image{
+    width:300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff9a93, #f3cfef);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size:8rem;
+    cursor:pointer;
+    transition: all 0.3s ease;
+    border: 5px solid rgba(255,255,255,0.3);
+}
+
+.profile-image:hover {
+    transform: scale(1.05);         /* x,y 전부 적용: scale */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* 푸터 */
+footer {
+    background: var(--white);
+    box-shadow: 0 2px 20px var(--shadow);
+    bottom:0;
+    width:100%;
+    z-index:1000;           /* 다른 요소 위에 표시 */
+    transition:all 0.3s ease;   /* 부드러운 변화 효과 */
+
+}

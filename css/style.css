@@ -1,0 +1,1131 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;  /*부드러운이동효과*/
+}
+
+/* 전역에서 사용할 CSS 변수 - 색상값 정의, 일관성 향상*/
+:root {
+    --primary-color: #667eea;       /* 주요 색상 */         /* '--'는 단순한 네이밍 스타일이 아니라 이 문법의 필수. 기존 속성(color, font-size 등)과 혼동 방지. 안 붙이면 브라우저가 인식 못 함, 적용 안 됨 */
+    --secondary-color: #764ba2;     /* 보조 색상 */
+    --text-color:#2c3e50;           /* 어두운 텍스트 */
+    --white: #ffffff;               /* 밝은 배경 */
+    --shadow : rgba(0,0,0,0.15);     /* 그림자 효과 */
+    --gray : rgb(126, 126, 126);
+}
+
+
+/* body 기본 스타일 */
+body {
+    background-color: #F5EFE7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;   /* 줄 간격 */
+    color:var(--text-color);        /* CSS 변수 사용 */
+    overflow-x:hidden;      /* 가로 스크롤 방지 */
+
+}
+
+a {
+    text-decoration: none;
+    color:black;
+}
+
+/*큰 버튼*/
+.btn  {
+    background: #3E5879;
+    color: #fff;
+    width:250px;
+    height:70px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
+    transition: transform .3s;
+    border: none;
+    cursor: pointer;
+    font-size: medium;
+    margin:1rem;
+}
+
+.btn:hover{
+    transform:translateY(-3px);     /* 호버 시 위로 이동 */
+}
+
+
+
+
+.title{
+    display: block;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-top: 15rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+    color: #213555;
+}
+
+.title::after{
+  content:'';
+  width:40px;
+  height:4px;
+  background:#3E5879;
+  position:absolute;
+  bottom:-15px;
+  left:50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+/*모바일 title*/
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+    margin-top: 8rem;
+    margin-bottom: 2rem;
+    padding: 0 20px;
+  }
+}
+
+/* 링크로 이동시 윗부분이 네비에 가려지는 문제 해결 */
+#home, #skills, #projects, #contact{
+    scroll-margin-top: 250px;
+}
+
+
+section{
+    margin:20px;
+}
+
+/* 모바일 section */
+@media screen and (max-width: 600px) {
+  section {
+    margin: 20px;
+  }
+}
+
+
+.hidden {
+  display:none !important;
+}
+
+
+
+
+
+
+
+
+
+
+/* 네비게이션 */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px clamp(50px, 5vw, 200px);   /*CALMP:최소,중간,최대*/
+  box-shadow: 0 4px 40px var(--shadow);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 60px;
+  z-index: 1000;
+  background: rgba(245, 239, 231, 0.97); 
+  transition:all 0.3s ease;   /* 부드러운 변화 효과 */
+}
+
+.name-wrap {
+    display: flex;
+    gap:4px;
+}
+
+
+/* 로고 + 이름 (왼쪽) */
+.nav-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-left a {
+  display:flex;
+  align-items: center;
+  flex-direction:row;
+    gap: 20px;
+}
+.nav-logo{
+  width:40px;
+  height:40px;
+  aspect-ratio: 1/1;  /*정사각형*/
+  border-radius: 50%;
+  overflow: hidden; /* 넘치는 이미지 잘라냄 */
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);         /* x,y 전부 적용: scale */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.nav-logo img {
+  width:100%;
+  height: 100%;
+  object-fit:cover;  /*이미지 깨지지 않게 꽉 채움*/
+  object-position: top; /*정사각형이 아니라 직사각형일 경우 원 안에 보여지게 할 중심*/
+  
+}
+
+
+
+
+/* 메뉴 + 다크모드 (오른쪽) */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 메뉴 리스트 */
+.nav-menu {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* 팔로우 버튼 영역 */
+.nav-center {
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.nav-center .btn{
+  width: 40px;
+  height: 40px;
+  font-size: 12px;
+  margin:0.2rem;
+}
+
+
+/* 모바일에서 네비게이션 */
+@media screen and (max-width: 768px) {
+  nav {
+    padding: 5px 15px;
+    box-shadow: none;
+  }
+}
+
+
+/* 모바일 팔로우 버튼 */
+@media screen and (max-width: 600px) {
+  .nav-center .btn {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
+
+
+/* 햄버거 */
+.hamburger{
+  display: inline;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+
+
+/*햄버거*/
+.mobile-menu{
+    position:fixed;
+    width: 100%;
+    background: rgba(245, 239, 231, 0.97); 
+    margin-top: 10px;
+    top:17.2%;
+    right:0;
+    transform: translateY(-50%);
+    gap:0.3rem;
+    padding: 3px 10px;
+    border-radius: 3px;
+    box-shadow: 0px 7px 29px 0px rgba(100,100,111,0.2);
+    z-index: 100;
+
+    /*부드럽게 애니메이션*/
+    opacity:0;
+    visibility: hidden;
+    transform: translateY(-60%);
+    transition: all 0.3s ease;
+
+    /* 텍스트 드래그 방지 */
+    user-select:none;
+  }
+
+/*햄버거 메뉴 열림 상태*/
+.mobile-menu.show {
+  opacity:1 ;
+  visibility:visible;
+  transform:translateY(-50%);
+}
+
+.mobile-menu ul li {
+  text-align:center;
+  transition: all 0.3s ease;
+  /*드래그 방지*/
+  user-select:none;
+}
+.mobile-menu ul li:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+
+
+
+
+/*홈 */
+.home {
+  margin-top: 15rem;
+  display:grid;
+  grid-template-columns: repeat(2, auto);
+  gap:5rem;
+  justify-content: center;
+  align-content: center;
+  max-width: 100%;
+  position:relative;
+  }
+
+.home-title {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    color: #213555;
+    font-weight: 800;
+    text-shadow: 0 3px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.home-name{
+  color:#3E5879;
+}
+
+.home-subtitle{
+    text-align: center;
+    font-style:italic;
+    color:gray;
+    font-size:2rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.home-description{
+  text-align: center;
+  max-width:600px;
+  margin-bottom:1rem;
+}
+
+
+.home-socials{
+  background-color: white;
+  position:absolute;
+  transform: translateY(-50%);
+  top:35%;
+  left:-20px;
+  display:flex;
+  flex-direction: column;
+  gap:0.3rem;
+  padding: 3px 2px;
+  border-radius: 3px;
+  box-shadow: 0px 7px 29px 0px rgba(100,100,111,0.2);
+  z-index: 100;
+  width:60px;
+  height:230px;
+
+}
+
+.home-socials i{
+  font-size: 28px; 
+  transition: background .3s;
+  border-radius: 5px;
+  text-align:center;
+  padding: 12px 12px;
+}
+
+.home-socials i:hover {
+    background: rgba(120,67,233,0.2)
+}
+
+.home-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+/*사진*/
+.profile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:30vw; /*반응형*/
+  max-width: 400px;
+  aspect-ratio: 1/1;  /*정사각형*/
+  border-radius: 50%;
+  overflow: hidden; /* 넘치는 이미지 잘라냄 */
+  transition: all 0.3s ease;
+  border: 5px solid rgba(255,255,255,0.6);
+}
+
+.profile:hover {
+    transform: scale(1.05);         /* x,y 전부 적용: scale */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.profile img {
+  width:100%;
+  height: 100%;
+  object-fit:cover;  /*이미지 깨지지 않게 꽉 채움*/
+  object-position: top; /*정사각형이 아니라 직사각형일 경우 원 안에 보여지게 할 중심*/
+  
+}
+
+
+
+/*태블릿크기 화면 */
+@media screen and (max-width:1024px){
+  .home {
+    grid-template-columns: 1fr;
+    justify-items:center;
+    margin-top:200px;
+    padding:0 20px;
+    gap: 50px;
+  }
+  .profile{
+    order:1;
+    width:350px;
+    max-width:350px;
+  }
+  .home-left{
+    order:2;
+  }
+.home-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+}
+
+/*모바일화면*/
+@media screen and (max-width:600px){
+  .home {
+    grid-template-columns: 1fr;
+    justify-items:center;
+    margin:0;
+    padding:0 15px;
+    gap: 30px;
+    padding-top:120px;
+  }
+  .profile{
+    order:1;
+    width:250px;
+    max-width:250px;
+  }
+  .home-left{
+    order:2;
+    text-align:center;
+    width:100%;
+  }
+  .home-left{
+    order:2;
+    text-align: center;
+    width: 100%;
+  }
+  .home-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+
+  }
+  .home-subtitle {
+    font-size: 1.5rem;
+  }
+  .home-description {
+    max-width: 100%;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  /* 홈 섹션 버튼들 중앙 정렬 */
+  .home-left > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .home-left > div:nth-child(2) .btn {
+    width: 180px;
+    height: 45px;
+  }
+}
+
+
+
+
+
+
+
+/* 소개 섹션 */
+
+.about {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 모바일에서 소개 섹션 개선 */
+@media screen and (max-width: 600px) {
+  .about {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .about p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+}
+
+.about-sentences{
+  display: grid;
+  grid-template-columns: 1fr clamp(300px, 50%, 600px) 1fr;  /*clamp(최소값,중간값,최대값*/
+}
+
+.about-sentences u{
+   display:inline-block;
+    transition:all 0.3s ease;   /* 부드러운 변화 효과 */
+      cursor: pointer;
+
+
+}
+.about-sentences u:hover{
+    transform:translateY(-3px);     /* 호버 시 위로 이동 */
+    color:#667eea
+
+}
+
+/*CONTACT 버튼*/
+.about-contact{
+  margin: 40px 0px;
+}
+
+/* 버튼 정렬 (2x2) */
+.stats {
+  display:grid;
+  grid-template-columns: repeat(2, auto);
+  gap:0.5rem;
+  justify-content: center;
+  align-content: center;
+  max-width: 100%;
+}
+
+/* 버튼 스타일 */
+.stats button {
+    background-color: #D8C4B6;
+    min-width: 30vh;
+    height:100px;
+    margin:5px;
+    border: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+    transition:all 0.4s ease;   /* 부드러운 변화 효과 */
+
+}
+.stats button:hover{
+    transform:translateY(-5px);     /* 호버 시 위로 이동 */
+}
+
+.stats-upper{
+    display: block;
+    font-family: "Dennis Sans", sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    line-height: 1.66;
+    font-size:2.5em;
+}
+.stats-lower {
+    font-family: "Dennis Sans", sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    font-size: 0.8em;
+    line-height: 1.065;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+}
+
+/* 모바일에서 stats 버튼 조정 */
+@media screen and (max-width: 600px) {
+  .stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem;
+    padding: 0 10px;
+  }
+  
+  .stats button {
+    min-width: auto;
+    width: 100%;
+    height: 80px;
+    margin: 3px;
+  }
+  
+  .stats-upper {
+    font-size: 2rem;
+  }
+}
+
+
+
+
+
+
+/*스킬 */
+/* h2는 왼쪽 정렬 또는 원하는 대로 */
+.skills > h2 {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+/* 버튼 영역만 가운데 정렬 */
+.skills-grid {
+  display: grid;
+  gap: 1rem;
+  justify-content: center;
+  align-content: center;
+  max-width: 100%;
+}
+
+/* 큰 화면 -> 가로 5칸 */
+@media screen and (min-width: 900px) {
+  .skills-grid {
+    grid-template-columns: repeat(5, auto);
+  }
+}
+
+/* 작은 화면 -> 가로 3칸 */
+@media screen and (max-width: 899px) and (min-width:600px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+/* 더 작은 화면 -> 가로 2칸 */
+@media screen and (max-width: 599px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+/* 버튼 스타일 */
+.skills button {
+    background-color: #D8C4B6;
+    width:150px;
+    height:50px;
+    margin:5px;
+    border: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+    transition:all 0.3s ease;   /* 부드러운 변화 효과 */
+
+}
+.skills button:hover{
+    transform:translateY(-3px);     /* 호버 시 위로 이동 */
+}
+
+/* 클릭된 버튼의 스타일 */
+.skills-grid button.clicked {
+    background-color: #667eea;
+    border-color: #667eea;
+    color: white;
+}
+
+
+
+
+/*프로젝트*/
+
+.projects-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* 필요시 줄바꿈 */
+  gap: 1rem;
+}
+
+.projects-images > img{
+  width:500px;  
+  height:auto;
+}
+
+/*projects-detail안의 첫번째 span만*/
+.projects-detail span:first-child{
+  font-size:24px;
+  font-weight: bold;
+}
+
+
+
+/*기본화면*/
+.project-layout{
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-content: center;
+  margin-top:120px;
+  gap:1.5em;
+}
+
+.projects-detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:1rem;
+}
+
+
+  /* 프로젝트 기술 스택 버튼 스타일 */
+.project-skill-one {
+    color: #666;
+    background-color: rgba(153, 153, 153, 0.2);
+    width:80px;
+    height:40px;
+    margin:5px;
+    border: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+    transition:all 0.3s ease;   /* 부드러운 변화 효과 */
+
+}
+.project-skill-one:hover{
+    transform:translateY(-3px);     /* 호버 시 위로 이동 */
+}
+
+
+
+/*프로젝트 밑 버튼들*/
+.project-buttons{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  gap:1.2em;
+  margin-top: 20px;
+}
+
+.project-buttons .btn{
+    width:250px;
+    height:60px;
+}
+
+/* 태블릿 화면*/
+@media screen and (min-width:768px) and (max-width:1023px) {
+.project-layout{
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
+.projects-images > img{
+  width:400px;  
+  height:auto;
+}
+.project-detail {
+  display:flex;
+  justify-content: center;
+  align-content: center;
+}
+}
+
+
+/*핸드폰 화면*/
+@media screen and (max-width:767px) {
+.projects{
+  padding:0 10px;
+}
+.project-layout{
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
+.projects-images > img{
+  width:300px;  
+  height:auto;
+}
+.project-detail {
+  display:flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.projects-detail span:first-child {
+    font-size: 16px;
+}
+  .project-skill-one {
+    width: 60px;
+    height: 30px;
+    font-size: 11px;
+  }
+.project-buttons .btn {
+  width:180px;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/*Contact*/
+
+.contact{
+  margin-bottom: 10rem;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  justify-content: center;
+  align-content: center;
+  max-width: 100%;
+  gap:5rem;
+  margin:0 15rem;
+}
+  
+.contact-subtitle {
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  margin: 4rem;
+  text-align: center;    
+  color:gray;  
+}
+
+
+fieldset{
+  border-style: none;
+}
+
+input {
+  font-family: "Dennis Sans", sans-serif;
+  font-size:15px;
+  padding: 1.5rem;
+  width: 438px;
+  border-radius: 8px;
+  border: solid 1px #ccc;
+  margin-left:2rem;
+  background: transparent;
+  transition:all 0.2s ease;   /* 부드러운 변화 효과 */
+}
+
+textarea{
+  font-family: "Dennis Sans", sans-serif;
+  font-size:15px;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: solid 1px #ccc;
+  margin-left:2rem;
+  background: transparent;
+  transition:all 0.2s ease;   /* 부드러운 변화 효과 */
+}
+
+input:focus {
+  outline: none;
+  border-color: blue;
+  box-shadow: 0 0 0 2px rgba(69, 92, 233, 0.2);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: blue;
+  box-shadow: 0 0 0 2px rgba(69, 92, 233, 0.2);
+}
+
+
+.form-header{
+  display:flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 20px;
+}
+
+.form-header p{
+  font-size:0.875rem;
+  color:gray;
+  font-weight:400;
+  min-width:2rem;
+}
+
+.form-header label {
+  font-size:1.1rem;
+  font-weight: 600;
+  color:#213555;
+  position:relative;
+
+}
+
+fieldset hr {
+  margin: 30px 0;
+}
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  gap:2rem;
+}
+
+.form-button {
+  border-radius: 50%;
+  width:10rem;
+  height:10rem;
+  display:flex;
+  justify-content: center;
+  color:white;
+  background: #3E5879;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: medium;
+  transition:all 0.4s ease;   /* 부드러운 변화 효과 */
+  border: none;
+  cursor: pointer;
+
+}
+
+.form-button:hover{
+    transform:translateY(-3px);     /* 호버 시 위로 이동 */
+    transform: scale(1.1);
+    font:x-large;
+}
+
+
+.contact-contents h5 {
+  margin-top: 20px;
+}
+
+
+li{
+  list-style: none;
+  padding:3px 0;
+  font-size:larger
+}
+ul{
+  margin-top:10px;
+  margin-bottom: 40px;
+  font-size:15px;
+
+}
+
+.contact-contents ul li {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.contact-contents ul li:hover {
+  transform: scale(1.02);
+  font-weight: bold;
+  color:blue;
+}
+
+
+/* (868px ~ 1023px) */
+@media screen and (min-width: 868px) and (max-width: 1023px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    margin: 0 5rem;
+    gap: 1rem;
+  }
+  
+  /* contact-contents를 위로 올리기 */
+  .contact-contents {
+    order: 1;
+    padding-top: 0;
+    text-align: center;
+  }
+  
+  .contact-messages {
+    order: 2;
+  }
+  ul{
+    margin-bottom: 10px;
+  }
+}
+
+/* 867px 이하 */
+@media screen and (max-width: 867px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    margin: 0 1rem;
+    gap: 1rem;
+  }
+  
+  /* contact-contents를 위로 올리기 */
+  .contact-contents {
+    order: 1;
+    padding-top: 0;
+    text-align: center;
+  }
+  
+  .contact-messages {
+    order: 2;
+  }
+  
+  /* 폼 요소들 모바일에 맞게 조정 */
+  input, textarea {
+    width: 100%;
+    margin-left: 0;
+    box-sizing: border-box;
+  }
+  
+  .form-buttons {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .form-button {
+    width: 8rem;
+    height: 8rem;
+  }
+    ul{
+    margin-bottom: 5px;
+  }
+}
+
+/* contact-subtitle도 반응형으로 조정 */
+@media screen and (max-width: 867px) {
+  .contact-subtitle {
+    margin: 2rem 1rem;
+  }
+  
+  .contact-subtitle h4 {
+    font-size: 1rem;
+  }
+}
+
+
+
+
+
+
+
+/* 푸터 */
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: row;
+  gap: 10px; /* 두 줄 사이 여백 */
+}
+
+.footer-copy-group,
+.footer-time-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+}
+
+/* 오른쪽은 이전처럼 유지 */
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-row {
+  margin-bottom: 5px;
+}
+
+.footer-lower span {
+  margin-left: 10px;
+}
+
+.footer-upper, .nav-upper{
+    font-family: "Dennis Sans", sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    font-size: 0.6em;
+    line-height: 1.065;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+}
+.footer-lower, .nav-lower{
+    font-family: "Dennis Sans", sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    line-height: 1.66;
+}
+
+.footer-lower a {
+    text-decoration: none;
+    color:var(--text-color);
+    font-weight:500;
+    transition:color 0.3s ease;
+    position: relative;     /* ::after 가상 요소를 위한 포지셔닝. 밑줄 효과가 나타나려면 반드시 있어야함.
+                            왜냐면 ::after는 position: absolute;인데,
+                  그 기준이 되는 **부모 요소가 position: relative;**일 때 원하는 위치에 정확히 잡히거든.
+                            position: relative : "내 자리 그대로 두고", 나 기준으로 자식 요소의 위치 지정 가능하게 함
+                            position: absolute : "내 위치는 부모 기준으로 지정할게!"
+                            */
+}
+
+/* 호버 시 밑줄 확장 효과 */
+.footer-lower a:hover::after {
+    width: 100%;                     /* 호버 시 전체 너비로 확장 */
+}
+
+/* 호버 할 때 나타나는 밑줄 효과 */         /* CSSNote\12.고급선택자\4.가상요소 */
+.footer-lower a::after {
+    content: '';
+    width:0;                            /* 너비 0인 선임 */
+    height:2px;                         /*  선인 이유: 2px의 높이 */
+    background: var(--primary-color);  /* 색이 있는 선임 */
+    position:absolute;                     /* a 태그 기준으로 위치 지정 */
+    bottom:-5px;                            /* a태그의 아래쪽에 위치. position:absoulte,bottom:5px -> 링크 텍스트 바로 아래에 딱 붙게 만든다 */     
+    left:0;
+    transition: width 0.3s ease;    /* 이 부분이 중요! */
+}
